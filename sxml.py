@@ -1,4 +1,5 @@
-import etree.ElementTree as ET
+# pylint: disable=invalid-name
+from etree import ElementTree
 
 
 data = '''<?xml version="1.0"?>
@@ -27,26 +28,10 @@ data = '''<?xml version="1.0"?>
 '''
 
 
-class XMLObject(object):
-
-    def __init__(self, root):
-        self._root = root
-
-    def _bfs(self, root):
-        # pylint: disable=invalid-name
-        l = []
-        d = {}
-        for child in root:
-            if not child:
-                d[child.tag] = child.text
-            else:
-                l.append({child.tag: self._bfs(child)})
-        if d:
-            return d
-        return l
-
-
 if __name__ == '__main__':
-    ROOT = ET.fromstring(data)
-    print(type(ROOT))
-    print(ROOT.country)
+    root = ElementTree.fromstring(data)
+    print(type(root))
+    print(root.findall('country'))
+    print(root.country[0].rank)
+    root.country[0].rank = 3
+    print(root.country[0].neighbor[0].attrib)

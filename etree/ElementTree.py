@@ -165,7 +165,6 @@ class Element:
     """
 
     def __init__(self, tag, attrib={}, **extra):
-        print('my custom init called')
         if not isinstance(attrib, dict):
             raise TypeError("attrib must be dict, not %s" % (
                 attrib.__class__.__name__,))
@@ -177,17 +176,6 @@ class Element:
 
     def __repr__(self):
         return "<%s %r at %#x>" % (self.__class__.__name__, self.tag, id(self))
-
-    def __getattr__(self, item):
-        # pylint: disable=invalid-name
-        print('CALLED')
-        r = self.findall(item)
-        if len(r) == 1 and r[0].text:
-            return r[0].text
-        return r
-
-    def __setattr__(self, item, val):
-        pass
 
     def makeelement(self, tag, attrib):
         """Create a new element with the same type.
@@ -238,6 +226,12 @@ class Element:
     def __delitem__(self, index):
         del self._children[index]
 
+    def __getattr__(self, name):
+        r = self.findall(name)
+        if len(r) == 1 and r[0].text:
+            return r[0].text
+        return r
+            
     def append(self, subelement):
         """Add *subelement* to the end of this element.
 
@@ -1073,7 +1067,7 @@ def _escape_cdata(text):
     # escape character data
     try:
         # it's worth avoiding do-nothing calls for strings that are
-        # shorter than 500 characters, or so.  assume that's, by far,
+        # shorter than 500 character, or so.  assume that's, by far,
         # the most common case in most applications.
         if "&" in text:
             text = text.replace("&", "&amp;")
@@ -1663,6 +1657,7 @@ try:
     _Element_Py = Element
 
     # Element, SubElement, ParseError, TreeBuilder, XMLParser
-    from _elementtree import *
+    # This took FOREVER TO FIND
+    # from _elementtree import *
 except ImportError:
     pass
