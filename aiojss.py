@@ -16,7 +16,7 @@ class JSS(object):
     def __del__(self):
         self.session.close()
 
-    async def _call_endpoint(self, endpoint, id=None, name=None):
+    async def _get_endpoint(self, endpoint, id=None, name=None):
         base_url = self.url + f'/JSSResource/{endpoint}'
         if id:
             url = base_url + f'/id/{id}'
@@ -34,10 +34,10 @@ class JSS(object):
                 return JSSObject(await resp.text())
 
     async def scripts(self, id=None, name=None):
-        return await self._call_endpoint('scripts', id, name)
+        return await self._get_endpoint('scripts', id, name)
 
     async def computer_extension_attributes(self, id=None, name=None):
-        return await self._call_endpoint('computerextensionattributes', id, name)
+        return await self._get_endpoint('computerextensionattributes', id, name)
 
 
 class JSSObject(object):
@@ -53,3 +53,6 @@ class JSSObject(object):
 
     def delete(self):
         raise NotImplementedError
+
+    def raw_xml(self):
+        return ElementTree.tostring(self._root)
