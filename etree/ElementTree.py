@@ -228,10 +228,13 @@ class Element:
 
     def __getattr__(self, name):
         r = self.findall(name)
-        if len(r) == 1 and r[0].text:
+        if r == []:
+            raise AttributeError
+        elif len(r) == 1 and r[0].text:
             return r[0].text
-        return r
-            
+        else:
+            return r
+
     def append(self, subelement):
         """Add *subelement* to the end of this element.
 
