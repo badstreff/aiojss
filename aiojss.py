@@ -2,7 +2,7 @@
 import asyncio
 import aiohttp
 
-from etree import ElementTree
+from .etree import ElementTree
 
 
 class NotFound(Exception):

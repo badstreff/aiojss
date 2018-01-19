@@ -1,1 +1,1 @@
-from aiojss import JSS
+from .aiojss import JSS
