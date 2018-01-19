@@ -46,17 +46,17 @@ class JSS(object):
         try:
             await self._get_endpoint(endpoint, id=jss_object.id)
             base_url += f'/{jss_object.id}'
-            print('script exist, updating')
-            print(jss_object.raw_xml())
-            print(base_url)
+            # print('script exist, updating')
+            # print(jss_object.raw_xml())
+            # print(base_url)
             resp = await self.session.put(base_url,
                                           auth=self.auth,
                                           data=jss_object.raw_xml(),
                                           headers=headers)
-            print(resp.status)
+            # print(resp.status)
         except NotFound:
             base_url += '/0'
-            print('script does not exist, creating')
+            # print('script does not exist, creating')
             self.session.post(base_url,
                               auth=self.auth,
                               data=jss_object.raw_xml(),
