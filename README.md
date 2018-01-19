@@ -3,7 +3,7 @@ asyncio  python wrapper for the Jamf JSS Rest API - with a prettier syntax
 
 
 Note that this project is still in super early beta and it's main purpose
-will likely be to just server as a way for git2jss to more cleanly talk
+will likely be to just serve as a way for git2jss to more cleanly talk
 to the jss, but it is being developed here because others *may* find it
 useful.
 
