@@ -9,10 +9,8 @@ useful.
 
 
 Modified etree that allows working with xml objects in a nicer way,
-the main thing is that elements and text can now be referenced with python
-dot notation. This causes issues if you need to change attributes but
-I haven't ran into needing to do this with the jss.
-
+the main thing is that elements can now be referenced with python
+dot notation. 
 
 
 So far only working with scripts and extension attributes are supported.
@@ -32,7 +30,7 @@ async def main():
     scripts = await jss.scripts()
     print(scripts.raw_xml())
     for script in scripts.script:
-        print(script.name)
+        print(script.name.text)
 
 
 if __name__ == '__main__':
