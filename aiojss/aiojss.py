@@ -41,17 +41,17 @@ class JSS(object):
                 return await resp.text()
 
     async def _post_endpoint(self, endpoint, jss_object):
-        base_url = self.url + f'/JSSResource/{endpoint}/id'
+        base_url = self.url + f'/JSSResource/{endpoint}/name'
+        base_url += f'/{jss_object.name.text}'
         headers = {'content-type': 'application/xml'}
         try:
-            await self._get_endpoint(endpoint, id=jss_object.id)
-            base_url += f'/{jss_object.id}'
+            await self._get_endpoint(endpoint, name=jss_object.name.text)
+            base_url += f'/{jss_object.name.text}'
             resp = await self.session.put(base_url,
                                           auth=self.auth,
                                           data=jss_object.raw_xml(),
                                           headers=headers)
         except NotFound:
-            base_url += '/0'
             self.session.post(base_url,
                               auth=self.auth,
                               data=jss_object.raw_xml(),
