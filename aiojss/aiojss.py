@@ -46,16 +46,15 @@ class JSS(object):
         headers = {'content-type': 'application/xml'}
         try:
             await self._get_endpoint(endpoint, name=jss_object.name.text)
-            base_url += f'/{jss_object.name.text}'
-            resp = await self.session.put(base_url,
-                                          auth=self.auth,
-                                          data=jss_object.raw_xml(),
-                                          headers=headers)
+            await self.session.put(base_url,
+                                   auth=self.auth,
+                                   data=jss_object.raw_xml(),
+                                   headers=headers)
         except NotFound:
-            self.session.post(base_url,
-                              auth=self.auth,
-                              data=jss_object.raw_xml(),
-                              headers=headers)
+            await self.session.post(base_url,
+                                    auth=self.auth,
+                                    data=jss_object.raw_xml(),
+                                    headers=headers)
 
     async def scripts(self, id=None, name=None):
         data = await self._get_endpoint('scripts', id, name)
